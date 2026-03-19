@@ -1,0 +1,104 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}À propos — Des Écrits et des Non-Écrits{% endblock %}
+
+{% block content %}
+
+<!-- About Banner -->
+<div style="background: linear-gradient(135deg, var(--bleu-light) 0%, #dde8dd 100%); padding: 5rem 0 3rem;">
+  <div class="container text-center">
+    <span style="font-family: var(--font-ui); font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--vert); display: block; margin-bottom: 0.5rem;">À propos</span>
+    <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--bleu); font-weight: 400;">
+      Qui se cache derrière les lignes ?
+    </h1>
+    <div style="width: 50px; height: 1px; background: var(--vert); margin: 1.5rem auto 0;"></div>
+  </div>
+</div>
+
+<!-- About Content -->
+<section class="about-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+
+        <!-- Quote -->
+        <div class="about-quote">
+          « Entre pages lues et mots écrits, je t'invite à voyager dans mon univers littéraire. »
+        </div>
+
+        <!-- Bio -->
+        <div style="font-family: var(--font-body); font-size: 1.05rem; line-height: 2; color: var(--gris);">
+          <p>
+            Je suis <strong style="font-family: var(--font-display); font-size: 1.15rem; color: var(--bleu);">Aïva Vital</strong>, certifiée assistante technique en pharmacie et également décoratrice et organisatrice d'événements.
+          </p>
+          <p>
+            Je suis passionnée par les livres, les mots, et tout ce qu'ils peuvent contenir de réel ou d'imaginaire.
+            Lire, écrire, analyser, partager des mots qui touchent ou qui dérangent… c'est ce qui m'anime.
+          </p>
+
+          <blockquote style="border-left: 3px solid var(--vert); padding: 1rem 1.5rem; margin: 2rem 0; background: var(--bleu-light); font-style: italic; color: var(--bleu); font-size: 1.05rem;">
+            <strong>« Des écrits et des non-écrits »</strong> est un espace d'expression : un lieu pour penser, lire, relire, écrire — et parfois, se taire.
+          </blockquote>
+
+          <p>
+            Ici, les mots voyagent, les idées se croisent, et le silence a lui aussi sa place.
+          </p>
+          <p>
+            Rejoins-moi pour explorer ce qui se cache derrière les lignes… et parfois, entre elles.
+          </p>
+        </div>
+
+        <!-- Divider -->
+        <div style="width: 50px; height: 1px; background: var(--vert); margin: 3rem 0;"></div>
+
+        <!-- Three sections explained -->
+        <h3 style="font-family: var(--font-display); color: var(--bleu); font-size: 1.6rem; font-weight: 400; margin-bottom: 2rem;">Ce que vous trouverez ici</h3>
+
+        <div class="row g-4 mb-4">
+          <div class="col-md-4">
+            <div style="text-align: center; padding: 1.5rem; border: 1px solid rgba(31,58,147,0.1);">
+              <div style="font-size: 2.5rem; margin-bottom: 1rem;">📖</div>
+              <div style="font-family: var(--font-display); font-size: 1.1rem; color: var(--bleu); margin-bottom: 0.5rem;">Carnet de Lecture</div>
+              <p style="font-family: var(--font-body); font-size: 0.85rem; color: var(--gris-mid); font-style: italic; margin: 0;">Résumés, impressions et notes sur les livres lus.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div style="text-align: center; padding: 1.5rem; border: 1px solid rgba(31,58,147,0.1); background: rgba(157,191,158,0.05);">
+              <div style="font-size: 2.5rem; margin-bottom: 1rem;">✍️</div>
+              <div style="font-family: var(--font-display); font-size: 1.1rem; color: var(--bleu); margin-bottom: 0.5rem;">Fiction & Confidences</div>
+              <p style="font-family: var(--font-body); font-size: 0.85rem; color: var(--gris-mid); font-style: italic; margin: 0;">Des textes personnels entre imaginaire et vérité.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div style="text-align: center; padding: 1.5rem; border: 1px solid rgba(31,58,147,0.1);">
+              <div style="font-size: 2.5rem; margin-bottom: 1rem;">💭</div>
+              <div style="font-family: var(--font-display); font-size: 1.1rem; color: var(--bleu); margin-bottom: 0.5rem;">Pensées en vrac</div>
+              <p style="font-family: var(--font-body); font-size: 0.85rem; color: var(--gris-mid); font-style: italic; margin: 0;">Articles et réflexions à partager.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div style="width: 50px; height: 1px; background: var(--vert); margin: 3rem 0;"></div>
+
+        <!-- Contact -->
+        <h3 style="font-family: var(--font-display); color: var(--bleu); font-size: 1.6rem; font-weight: 400; margin-bottom: 1.5rem;">Me retrouver</h3>
+
+        <div class="d-flex flex-wrap gap-2">
+          <a href="mailto:desecritsetdesnonecrits@gmail.com" class="social-link">
+            <i class="bi bi-envelope"></i>
+            desecritsetdesnonecrits@gmail.com
+          </a>
+          <a href="https://instagram.com" target="_blank" class="social-link">
+            <i class="bi bi-instagram"></i>
+            @Des écrits et des non-écrits
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

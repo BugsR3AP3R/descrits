@@ -1,0 +1,75 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}{{ category_name }} — Des Écrits et des Non-Écrits{% endblock %}
+
+{% block content %}
+
+<!-- Category Banner -->
+<div class="cat-banner {{ category_slug }}">
+  <div class="container text-center">
+    <div class="cat-icon">{{ category_icon }}</div>
+    <h1 style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); color: var(--bleu); font-weight: 400;">
+      {{ category_name }}
+    </h1>
+    <p style="font-family: var(--font-body); font-style: italic; color: var(--gris-mid); font-size: 1.05rem; max-width: 500px; margin: 1rem auto 0;">
+      {{ category_desc }}
+    </p>
+    <div style="width: 50px; height: 1px; background: var(--vert); margin: 1.5rem auto 0;"></div>
+  </div>
+</div>
+
+<!-- Posts Grid -->
+<section class="py-5">
+  <div class="container">
+    {% if posts %}
+    <div class="row g-4">
+      {% for post in posts %}
+      <div class="col-md-6 col-lg-4">
+        <div class="post-card">
+          {% if post.cover_image %}
+          <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="post-card-img">
+          {% else %}
+          <div class="post-card-img-placeholder">{{ category_icon }}</div>
+          {% endif %}
+          <div class="post-card-body">
+            <span class="post-card-cat">{{ category_name }}</span>
+            <div class="post-card-title">{{ post.title }}</div>
+            {% if post.author_name %}
+            <div class="post-card-author">{{ post.author_name }}</div>
+            {% endif %}
+            {% if post.rating %}
+            <div class="mb-2">
+              {% for s in post.get_stars %}<i class="bi bi-star-fill star-filled"></i>{% endfor %}
+              {% for s in post.get_empty_stars %}<i class="bi bi-star star-empty"></i>{% endfor %}
+            </div>
+            {% endif %}
+            {% if post.excerpt %}
+            <p class="post-card-excerpt">{{ post.excerpt|truncatewords:30 }}</p>
+            {% endif %}
+          </div>
+          <div class="post-card-footer">
+            <span class="post-card-date">{{ post.created_at|date:"d M Y" }}</span>
+            <a href="{% url 'post_detail' post.slug %}" class="btn-lire">Lire →</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% else %}
+    <div class="text-center py-5">
+      <div style="font-size: 3rem; margin-bottom: 1.5rem;">{{ category_icon }}</div>
+      <h3 style="font-family: var(--font-display); color: var(--bleu); font-size: 1.6rem;">Bientôt ici…</h3>
+      <p style="font-family: var(--font-body); font-style: italic; color: var(--gris-mid);">
+        Les premiers contenus de cette section arrivent. Revenez bientôt !
+      </p>
+      <a href="{% url 'home' %}" style="font-family: var(--font-ui); font-size: 0.75rem; letter-spacing: 0.15em; color: var(--bleu); text-decoration: none; border-bottom: 1px solid var(--vert);">
+        ← Retour à l'accueil
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

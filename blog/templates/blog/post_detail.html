@@ -1,0 +1,166 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title }} — Des Écrits et des Non-Écrits{% endblock %}
+
+{% block content %}
+
+<!-- Post Hero -->
+<div class="post-hero">
+  <div class="container">
+    <div style="max-width: 720px; margin: 0 auto; text-align: center;">
+      <!-- Breadcrumb -->
+      <div class="post-meta mb-3">
+        <a href="{% url 'home' %}" style="color: var(--gris-mid); text-decoration: none;">Accueil</a>
+        <span class="mx-2" style="color: var(--vert);">·</span>
+        {% if post.category == 'carnet' %}
+        <a href="{% url 'carnet' %}" style="color: var(--gris-mid); text-decoration: none;">Carnet de Lecture</a>
+        {% elif post.category == 'textes' %}
+        <a href="{% url 'textes' %}" style="color: var(--gris-mid); text-decoration: none;">Fiction & Confidences</a>
+        {% else %}
+        <a href="{% url 'pensees' %}" style="color: var(--gris-mid); text-decoration: none;">Pensées en vrac</a>
+        {% endif %}
+      </div>
+
+      <h1 style="font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 3rem); color: var(--bleu); font-weight: 400; line-height: 1.2; margin-bottom: 0.8rem;">
+        {{ post.title }}
+      </h1>
+
+      {% if post.author_name %}
+      <div style="font-family: var(--font-ui); font-size: 0.82rem; color: var(--gris-mid); margin-bottom: 0.8rem;">
+        <i class="bi bi-book me-1"></i>{{ post.author_name }}
+      </div>
+      {% endif %}
+
+      {% if post.rating %}
+      <div class="mb-2">
+        {% for s in post.get_stars %}<i class="bi bi-star-fill star-filled" style="font-size: 1rem;"></i>{% endfor %}
+        {% for s in post.get_empty_stars %}<i class="bi bi-star star-empty" style="font-size: 1rem;"></i>{% endfor %}
+        <span style="font-family: var(--font-ui); font-size: 0.75rem; color: var(--gris-mid); margin-left: 0.5rem;">{{ post.rating }}/5</span>
+      </div>
+      {% endif %}
+
+      <div class="post-meta">
+        {{ post.created_at|date:"d F Y" }}
+        {% if post.comments.count > 0 %}
+        <span class="mx-2" style="color: var(--vert);">·</span>
+        {{ post.comments.filter.count }} commentaire{% if post.comments.count > 1 %}s{% endif %}
+        {% endif %}
+      </div>
+
+      <div style="width: 50px; height: 1px; background: var(--vert); margin: 1.5rem auto 0;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Cover image -->
+{% if post.cover_image %}
+<div class="container mt-4" style="max-width: 720px;">
+  <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" style="width: 100%; max-height: 450px; object-fit: cover; display: block; margin: 0 auto;">
+</div>
+{% endif %}
+
+<!-- Post Content -->
+<article class="py-5">
+  <div class="container">
+    {% if post.excerpt %}
+    <div style="max-width: 720px; margin: 0 auto 2rem; border-left: 3px solid var(--vert); padding: 1rem 1.5rem; background: var(--bleu-light);">
+      <p style="font-family: var(--font-display); font-size: 1.2rem; font-style: italic; color: var(--bleu); margin: 0; line-height: 1.7;">
+        {{ post.excerpt }}
+      </p>
+    </div>
+    {% endif %}
+
+    <div class="post-content">
+      {{ post.content|linebreaks }}
+    </div>
+
+    <!-- Post footer -->
+    <div style="max-width: 720px; margin: 3rem auto 0; padding-top: 2rem; border-top: 1px solid var(--gris-light); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        {% if post.category == 'carnet' %}
+        <a href="{% url 'carnet' %}" style="font-family: var(--font-ui); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bleu); text-decoration: none; border: 1px solid rgba(31,58,147,0.3); padding: 0.4rem 1rem; border-radius: 20px;">
+          ← Retour au Carnet
+        </a>
+        {% elif post.category == 'textes' %}
+        <a href="{% url 'textes' %}" style="font-family: var(--font-ui); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bleu); text-decoration: none; border: 1px solid rgba(31,58,147,0.3); padding: 0.4rem 1rem; border-radius: 20px;">
+          ← Retour aux Textes
+        </a>
+        {% else %}
+        <a href="{% url 'pensees' %}" style="font-family: var(--font-ui); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bleu); text-decoration: none; border: 1px solid rgba(31,58,147,0.3); padding: 0.4rem 1rem; border-radius: 20px;">
+          ← Retour aux Pensées
+        </a>
+        {% endif %}
+      </div>
+      <!-- Share -->
+      <div style="font-family: var(--font-ui); font-size: 0.72rem; color: var(--gris-mid);">
+        Partager :
+        <a href="https://twitter.com/intent/tweet?text={{ post.title }}&url={{ request.build_absolute_uri }}" target="_blank" style="color: var(--bleu); margin-left: 0.5rem;"><i class="bi bi-twitter-x"></i></a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" style="color: var(--bleu); margin-left: 0.5rem;"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com" target="_blank" style="color: var(--bleu); margin-left: 0.5rem;"><i class="bi bi-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+<!-- ===== COMMENTAIRES ===== -->
+<section class="comments-section">
+  <div class="container" style="max-width: 720px;">
+
+    <h3 style="font-family: var(--font-display); color: var(--bleu); font-size: 1.6rem; font-weight: 400; margin-bottom: 2rem;">
+      {% if comments %}{{ comments|length }} Commentaire{% if comments|length > 1 %}s{% endif %}{% else %}Commentaires{% endif %}
+    </h3>
+
+    <!-- Liste des commentaires -->
+    {% if comments %}
+    <div class="mb-4">
+      {% for comment in comments %}
+      <div class="comment-item">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <span class="comment-name">{{ comment.name }}</span>
+          <span class="comment-date">{{ comment.created_at|date:"d M Y" }}</span>
+        </div>
+        <p style="font-family: var(--font-body); font-size: 0.92rem; margin: 0; line-height: 1.7;">{{ comment.content }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p style="font-family: var(--font-body); font-style: italic; color: var(--gris-mid); margin-bottom: 2rem;">
+      Soyez la première personne à laisser un commentaire ✨
+    </p>
+    {% endif %}
+
+    <!-- Formulaire commentaire -->
+    <div style="background: white; padding: 2rem; border: 1px solid rgba(31,58,147,0.1);">
+      <h4 style="font-family: var(--font-display); color: var(--bleu); font-size: 1.3rem; font-weight: 400; margin-bottom: 1.5rem;">
+        Laisser un commentaire
+      </h4>
+      <p style="font-family: var(--font-ui); font-size: 0.75rem; color: var(--gris-mid); margin-bottom: 1.5rem;">
+        Votre commentaire sera visible après modération.
+      </p>
+
+      <form method="post" class="comment-form">
+        {% csrf_token %}
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label style="font-family: var(--font-ui); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gris-mid); display: block; margin-bottom: 0.4rem;">Nom *</label>
+            <input type="text" name="name" required class="form-control" placeholder="Votre prénom">
+          </div>
+          <div class="col-md-6">
+            <label style="font-family: var(--font-ui); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gris-mid); display: block; margin-bottom: 0.4rem;">Email *</label>
+            <input type="email" name="email" required class="form-control" placeholder="votre@email.com">
+            <div style="font-family: var(--font-ui); font-size: 0.68rem; color: var(--gris-mid); margin-top: 0.3rem;">Non affiché publiquement</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label style="font-family: var(--font-ui); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gris-mid); display: block; margin-bottom: 0.4rem;">Commentaire *</label>
+          <textarea name="content" required class="form-control" rows="5" placeholder="Partagez vos pensées…"></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Envoyer mon commentaire</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

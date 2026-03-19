@@ -1,0 +1,243 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Des Écrits et des Non-Écrits — Accueil{% endblock %}
+
+{% block content %}
+
+<!-- ===== HERO / COVER ===== -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center min-vh-100 py-5">
+      <div class="col-lg-6 hero-logo-wrap">
+        <!-- Logo grand format -->
+        <div class="mb-4">
+          <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:130px; height:130px;">
+            <circle cx="80" cy="80" r="76" fill="#F0F4FF" stroke="#1F3A93" stroke-width="1.5"/>
+            <!-- Livre ouvert -->
+            <path d="M35 58 Q80 50 80 58 Q80 50 125 58 L125 112 Q80 104 80 112 Q80 104 35 112 Z" fill="none" stroke="#1F3A93" stroke-width="2" stroke-linejoin="round"/>
+            <line x1="80" y1="58" x2="80" y2="112" stroke="#1F3A93" stroke-width="1.8"/>
+            <!-- Lignes gauche (écrits) -->
+            <line x1="43" y1="72" x2="74" y2="69" stroke="#9DBF9E" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="43" y1="80" x2="74" y2="77" stroke="#9DBF9E" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="43" y1="88" x2="70" y2="85" stroke="#9DBF9E" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="43" y1="96" x2="67" y2="93" stroke="#9DBF9E" stroke-width="1" stroke-linecap="round"/>
+            <!-- Lignes droite (non-écrits = pointillés) -->
+            <line x1="86" y1="69" x2="117" y2="72" stroke="#1F3A93" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4 3"/>
+            <line x1="86" y1="77" x2="117" y2="80" stroke="#1F3A93" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4 3"/>
+            <line x1="86" y1="85" x2="113" y2="88" stroke="#1F3A93" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="4 3"/>
+            <line x1="86" y1="93" x2="107" y2="96" stroke="#1F3A93" stroke-width="1" stroke-linecap="round" stroke-dasharray="2 3"/>
+            <!-- Plume -->
+            <path d="M105 30 Q120 20 124 38 Q116 44 104 56 Q100 48 105 30Z" fill="#9DBF9E" opacity="0.85"/>
+            <line x1="104" y1="56" x2="96" y2="72" stroke="#9DBF9E" stroke-width="1.2" stroke-dasharray="3 2"/>
+            <!-- Points silence -->
+            <circle cx="80" cy="124" r="3" fill="#1F3A93"/>
+            <circle cx="71" cy="127" r="2" fill="#9DBF9E"/>
+            <circle cx="89" cy="127" r="2" fill="#9DBF9E"/>
+          </svg>
+        </div>
+
+        <div class="hero-title fade-in">Des Écrits<br>et des Non-Écrits</div>
+        <div class="hero-title-en fade-in-delay-1">Written & Unwritten</div>
+        <div class="hero-slogan fade-in-delay-1">— A few words and many silences —</div>
+        <div class="hero-divider fade-in-delay-2"></div>
+        <p class="hero-desc fade-in-delay-2">
+          Entre pages lues et mots écrits, je t'invite à voyager dans mon univers littéraire.<br><br>
+          Ici, les mots voyagent, les idées se croisent et le silence a lui aussi sa place.
+        </p>
+
+        <div class="mt-4 fade-in-delay-3 d-flex gap-3 flex-wrap">
+          <a href="{% url 'carnet' %}" class="btn" style="background: var(--bleu); color: white; font-family: var(--font-ui); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; border-radius: 0; padding: 0.8rem 1.8rem;">
+            Explorer le blog
+          </a>
+          <a href="{% url 'about' %}" class="btn" style="background: transparent; color: var(--bleu); border: 1px solid var(--bleu); font-family: var(--font-ui); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; border-radius: 0; padding: 0.8rem 1.8rem;">
+            Qui suis-je ?
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero right side decoration -->
+      <div class="col-lg-5 offset-lg-1 d-none d-lg-flex justify-content-center align-items-center">
+        <div style="position: relative; text-align: center;">
+          <div style="font-family: var(--font-display); font-size: 8rem; line-height: 1; color: rgba(31,58,147,0.06); font-weight: 600; letter-spacing: -0.02em; user-select: none;">
+            LIRE<br>ÉCRIRE<br>RÊVER
+          </div>
+          <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: var(--font-display); font-size: 1.1rem; font-style: italic; color: var(--bleu); opacity: 0.7; white-space: nowrap;">
+            « et parfois, se taire »
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div style="position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); text-align: center;">
+    <div style="font-family: var(--font-ui); font-size: 0.65rem; letter-spacing: 0.2em; color: var(--gris-mid); text-transform: uppercase; margin-bottom: 0.5rem;">Découvrir</div>
+    <div style="width: 1px; height: 40px; background: linear-gradient(to bottom, var(--bleu), transparent); margin: 0 auto; animation: fadeInUp 1.5s ease infinite;"></div>
+  </div>
+</section>
+
+
+<!-- ===== SECTIONS CATEGORIES ===== -->
+
+<!-- Carnet de Lecture -->
+{% if carnet_posts %}
+<section class="py-5 mt-4">
+  <div class="container">
+    <div class="section-title-wrap">
+      <span class="section-label">Partie I</span>
+      <h2 class="section-title">📖 Carnet de Lecture</h2>
+      <p style="font-family: var(--font-body); font-style: italic; color: var(--gris-mid); font-size: 0.95rem;">Entre les pages lues, des impressions et des mots qui restent.</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="row g-4">
+      {% for post in carnet_posts %}
+      <div class="col-md-6 col-lg-4">
+        <div class="post-card">
+          {% if post.cover_image %}
+          <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="post-card-img">
+          {% else %}
+          <div class="post-card-img-placeholder">📖</div>
+          {% endif %}
+          <div class="post-card-body">
+            <span class="post-card-cat">Carnet de Lecture</span>
+            <div class="post-card-title">{{ post.title }}</div>
+            {% if post.author_name %}
+            <div class="post-card-author">{{ post.author_name }}</div>
+            {% endif %}
+            {% if post.rating %}
+            <div class="mb-2">
+              {% for s in post.get_stars %}<i class="bi bi-star-fill star-filled"></i>{% endfor %}
+              {% for s in post.get_empty_stars %}<i class="bi bi-star star-empty"></i>{% endfor %}
+            </div>
+            {% endif %}
+            {% if post.excerpt %}
+            <p class="post-card-excerpt">{{ post.excerpt|truncatewords:25 }}</p>
+            {% endif %}
+          </div>
+          <div class="post-card-footer">
+            <span class="post-card-date">{{ post.created_at|date:"d M Y" }}</span>
+            <a href="{% url 'post_detail' post.slug %}" class="btn-lire">Lire →</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+      <a href="{% url 'carnet' %}" style="font-family: var(--font-ui); font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--bleu); text-decoration: none; border-bottom: 1px solid var(--vert); padding-bottom: 2px;">
+        Voir tous les résumés →
+      </a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Séparateur décoratif -->
+<div style="text-align: center; padding: 1rem 0; color: rgba(31,58,147,0.2); font-size: 1.5rem; letter-spacing: 1rem;">· · ·</div>
+
+<!-- Fiction & Confidences -->
+{% if textes_posts %}
+<section class="py-5" style="background: linear-gradient(180deg, transparent, rgba(157,191,158,0.05), transparent);">
+  <div class="container">
+    <div class="section-title-wrap">
+      <span class="section-label">Partie II</span>
+      <h2 class="section-title">✍️ Fiction & Confidences</h2>
+      <p style="font-family: var(--font-body); font-style: italic; color: var(--gris-mid); font-size: 0.95rem;">Des textes écrits à cœur ouvert — entre imaginaire et vérité.</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="row g-4">
+      {% for post in textes_posts %}
+      <div class="col-md-6 col-lg-4">
+        <div class="post-card">
+          {% if post.cover_image %}
+          <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="post-card-img">
+          {% else %}
+          <div class="post-card-img-placeholder">✍️</div>
+          {% endif %}
+          <div class="post-card-body">
+            <span class="post-card-cat">Fiction & Confidences</span>
+            <div class="post-card-title">{{ post.title }}</div>
+            {% if post.excerpt %}
+            <p class="post-card-excerpt">{{ post.excerpt|truncatewords:30 }}</p>
+            {% endif %}
+          </div>
+          <div class="post-card-footer">
+            <span class="post-card-date">{{ post.created_at|date:"d M Y" }}</span>
+            <a href="{% url 'post_detail' post.slug %}" class="btn-lire">Lire →</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+      <a href="{% url 'textes' %}" style="font-family: var(--font-ui); font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--bleu); text-decoration: none; border-bottom: 1px solid var(--vert); padding-bottom: 2px;">
+        Voir tous les textes →
+      </a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Séparateur -->
+<div style="text-align: center; padding: 1rem 0; color: rgba(31,58,147,0.2); font-size: 1.5rem; letter-spacing: 1rem;">· · ·</div>
+
+<!-- Pensées en vrac -->
+{% if pensees_posts %}
+<section class="py-5">
+  <div class="container">
+    <div class="section-title-wrap">
+      <span class="section-label">Partie III</span>
+      <h2 class="section-title">💭 Pensées en vrac</h2>
+      <p style="font-family: var(--font-body); font-style: italic; color: var(--gris-mid); font-size: 0.95rem;">Des réflexions qui ne demandent qu'à être partagées.</p>
+      <div class="section-line"></div>
+    </div>
+    <div class="row g-4">
+      {% for post in pensees_posts %}
+      <div class="col-md-6 col-lg-4">
+        <div class="post-card">
+          {% if post.cover_image %}
+          <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="post-card-img">
+          {% else %}
+          <div class="post-card-img-placeholder">💭</div>
+          {% endif %}
+          <div class="post-card-body">
+            <span class="post-card-cat">Pensées en vrac</span>
+            <div class="post-card-title">{{ post.title }}</div>
+            {% if post.excerpt %}
+            <p class="post-card-excerpt">{{ post.excerpt|truncatewords:30 }}</p>
+            {% endif %}
+          </div>
+          <div class="post-card-footer">
+            <span class="post-card-date">{{ post.created_at|date:"d M Y" }}</span>
+            <a href="{% url 'post_detail' post.slug %}" class="btn-lire">Lire →</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+      <a href="{% url 'pensees' %}" style="font-family: var(--font-ui); font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--bleu); text-decoration: none; border-bottom: 1px solid var(--vert); padding-bottom: 2px;">
+        Voir toutes les pensées →
+      </a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Message si aucun contenu -->
+{% if not carnet_posts and not textes_posts and not pensees_posts %}
+<section class="py-5">
+  <div class="container text-center" style="padding: 5rem 0;">
+    <div style="font-size: 3rem; margin-bottom: 1.5rem;">✨</div>
+    <h3 style="font-family: var(--font-display); color: var(--bleu); font-size: 1.8rem; margin-bottom: 1rem;">Le blog s'éveille…</h3>
+    <p style="font-family: var(--font-body); font-style: italic; color: var(--gris-mid); max-width: 400px; margin: 0 auto 2rem;">
+      Les premiers mots arrivent bientôt. En attendant, rendez-vous dans l'administration pour publier vos premiers articles.
+    </p>
+    <a href="/admin/" style="font-family: var(--font-ui); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; background: var(--bleu); color: white; text-decoration: none; padding: 0.8rem 2rem; display: inline-block;">
+      Aller à l'administration
+    </a>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}
