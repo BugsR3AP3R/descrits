@@ -18,6 +18,3 @@ echo "🌱  Chargement des données de démo..."
 python manage.py seed_data
 
 echo "✅  Build terminé !"
-
-
-web: gunicorn descrits.wsgi
