@@ -8,11 +8,14 @@ echo "🔧  Création des migrations..."
 python manage.py makemigrations blog
 
 
+echo "📁  Collecte des fichiers statiques..."
+python manage.py collectstatic --noinput --clear
+
+
 echo "🗄️  Application des migrations..."
 python manage.py migrate
 
-echo "📁  Collecte des fichiers statiques..."
-python manage.py collectstatic --noinput --clear
+
 
 echo "🌱  Chargement des données de démo..."
 python manage.py seed_data
